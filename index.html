@@ -144,6 +144,7 @@ input:focus,textarea:focus{outline:3px solid rgba(26,156,196,.35);border-color:#
 
     <section class="card hide" id="nf">
       <h2>Dados para a nota fiscal</h2>
+      <p class="hint" style="margin:0">Se a nota for no seu nome, usamos o nome e o telefone que você já informou.</p>
       <div class="q">A nota fiscal será no seu nome?</div>
       <div class="seg"><label><input type="radio" name="nfMesma" value="sim">Sim, no meu nome</label><label><input type="radio" name="nfMesma" value="nao">Não, de outra pessoa</label></div>
       <label class="f" id="nfNomeL">Nome completo de quem recebe a nota<input type="text" name="nfNome" autocapitalize="words"></label>
@@ -255,6 +256,8 @@ function atualizar() {
   $('#parouTxt').classList.toggle('hide', val('tabagismo') !== 'Ex-tabagista');
   var mesma = val('nfMesma') === 'sim';
   $('#nfNomeL').classList.toggle('hide', mesma);
+  var tel = $('[name=nfTelefone]');
+  if (mesma && !tel.value && val('telefone')) tel.value = val('telefone');
 }
 
 // ---------- rascunho neste celular ----------
