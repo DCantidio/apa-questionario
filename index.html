@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Questionário pré-anestésico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap">
+<style>
+:root{--bg:#F2F5F4;--card:#FFFFFF;--ink:#0A2229;--muted:#546A70;--line:#D6E0DF;--track:#E3EAE9;--cover:#061A20;--co2:#F2B53A;--co2ink:#1D1606;--ok:#0B7A47;--err:#B3402E}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Atkinson Hyperlegible',system-ui,-apple-system,sans-serif;font-size:18px;line-height:1.45}
+.top{background:var(--cover);color:#E8F3F2;padding:22px 18px 26px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;font-size:17px}
+.top h1{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:30px;line-height:1.1;margin:18px 0 12px}
+.intro{margin:0;font-size:18px;color:#D3E4E6}
+.wrap{max-width:640px;margin:0 auto;padding:16px 16px 40px;display:flex;flex-direction:column;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:22px;line-height:1.2;margin:0}
+.hint{font-size:15px;color:var(--muted);margin:-6px 0 0}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:16px}
+input[type=text],input[type=tel],input[type=email],textarea{font:inherit;font-size:18px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;min-height:52px;width:100%}
+textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus{outline:3px solid rgba(26,156,196,.35);border-color:#1A9CC4}
+.row{display:flex;gap:12px}.row>*{flex:1;min-width:0}
+.q{font-weight:700;font-size:16px}
+.seg{display:flex;gap:4px;padding:4px;border-radius:14px;background:var(--track);flex-wrap:wrap}
+.seg label{flex:1 1 30%;min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:11px;font-size:16px;color:#3E5359;padding:6px 8px;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:#fff;color:var(--ink);font-weight:700;box-shadow:0 1px 2px rgba(10,34,41,.12)}
+.checks{display:flex;flex-direction:column;gap:8px}
+.ck{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;font-size:17px}
+.ck input{width:24px;height:24px;margin:1px 0 0;accent-color:var(--ok);flex:none}
+.ck:has(input:checked){border-color:#1FA864;background:#EAF7EF}
+.grp{font-weight:700;font-size:15px;color:var(--muted);margin:6px 0 -4px}
+.none{border-style:dashed}
+.item{border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:12px;background:#FAFCFB}
+.add{font:inherit;font-weight:700;font-size:16px;min-height:52px;border-radius:16px;border:1.5px dashed #9FB2B1;background:transparent;color:var(--ink);cursor:pointer}
+.rm{align-self:flex-start;font:inherit;font-size:15px;font-weight:700;color:var(--err);background:none;border:0;padding:6px 0;cursor:pointer}
+.hide{display:none!important}
+.send{font:inherit;font-weight:700;font-size:19px;min-height:62px;border-radius:18px;border:0;background:var(--co2);color:var(--co2ink);cursor:pointer;width:100%}
+.priv{font-size:14px;color:var(--muted);text-align:center;margin:0}
+.err{background:#F8DCD8;color:#8C2318;border-radius:16px;padding:16px;font-weight:700}
+.done{background:#DDF3E6;color:#0B6B3E;border-radius:16px;padding:16px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect x=".75" y=".75" width="26.5" height="26.5" rx="8" fill="none" stroke="#F2B53A" stroke-width="1.5"/><path d="M5 16h5l2-7 3 12 2-5h6" fill="none" stroke="#F2B53A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>APA Digital</div>
+  <h1>Questionário pré-anestésico</h1>
+  <p class="intro" id="intro"></p>
+</header>
+
+<main class="wrap">
+  <div class="err hide" id="erro">Este link está incompleto. Peça ao seu anestesista para enviar o questionário de novo.</div>
+
+  <form id="form" autocomplete="on">
+    <div class="wrap" style="padding:0">
+
+    <section class="card">
+      <p class="hint" style="margin:0">Responda o que souber. Nenhuma pergunta é obrigatória. Suas respostas ficam salvas neste celular até você enviar.</p>
+    </section>
+
+    <section class="card">
+      <h2>Seus dados</h2>
+      <label class="f">Nome completo<input type="text" name="nome" autocomplete="name" autocapitalize="words"></label>
+      <label class="f">Data de nascimento<input type="text" name="nascimento" inputmode="numeric" placeholder="DD/MM/AAAA" data-mask="date"></label>
+      <div class="q">Sexo</div>
+      <div class="seg" data-radio="sexo"><label><input type="radio" name="sexo" value="Feminino">Feminino</label><label><input type="radio" name="sexo" value="Masculino">Masculino</label></div>
+      <div id="gest" class="hide" style="display:flex;flex-direction:column;gap:8px">
+        <div class="q">Existe possibilidade de você estar grávida?</div>
+        <div class="seg"><label><input type="radio" name="gestacao" value="Não">Não</label><label><input type="radio" name="gestacao" value="Sim">Sim</label><label><input type="radio" name="gestacao" value="Incerto">Não sei</label></div>
+      </div>
+      <label class="f">Telefone (WhatsApp)<input type="tel" name="telefone" autocomplete="tel" placeholder="(85) 90000-0000" data-mask="phone"></label>
+      <label class="f">Plano de saúde<input type="text" name="plano" placeholder="Nome do plano ou particular"></label>
+      <div class="row">
+        <label class="f">Peso (kg)<input type="text" name="peso" inputmode="decimal" placeholder="Ex.: 70"></label>
+        <label class="f">Altura (cm)<input type="text" name="altura" inputmode="decimal" placeholder="Ex.: 165"></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Sua cirurgia</h2>
+      <label class="f">Qual cirurgia você vai fazer?<input type="text" name="cirurgia" placeholder="Se souber"></label>
+      <label class="f">Data prevista<input type="text" name="dataCirurgia" inputmode="numeric" placeholder="DD/MM/AAAA" data-mask="date"></label>
+    </section>
+
+    <section class="card">
+      <h2>Doenças</h2>
+      <p class="hint">Marque as que você tem ou já teve.</p>
+      <label class="ck none"><input type="checkbox" name="negaComorbidades" data-none="doenca">Não tenho nenhuma doença</label>
+      <div class="checks" id="doencas"></div>
+      <label class="f">Outras doenças ou detalhes<textarea name="outrasDoencas" placeholder="Ex.: tenho pressão alta há 10 anos"></textarea></label>
+    </section>
+
+    <section class="card">
+      <h2>Remédios que você usa</h2>
+      <p class="hint">Inclua os de uso contínuo, os injetáveis (como Ozempic ou insulina) e os anticoagulantes.</p>
+      <label class="ck none"><input type="checkbox" name="negaMeds" data-none="med">Não uso remédios</label>
+      <div class="checks" id="meds"></div>
+      <button type="button" class="add" data-add="med">+ Adicionar remédio</button>
+      <label class="f">Chás, fitoterápicos ou suplementos<input type="text" name="fito" placeholder="Ex.: ômega 3, ginkgo biloba"></label>
+    </section>
+
+    <section class="card">
+      <h2>Alergias</h2>
+      <label class="ck none"><input type="checkbox" name="negaAlergias" data-none="alergia">Não tenho alergias</label>
+      <div class="checks" id="alergias"></div>
+      <label class="f">Outra alergia<input type="text" name="outraAlergia" placeholder="Ex.: camarão, esparadrapo"></label>
+      <label class="f">Como foi a reação?<input type="text" name="reacao" placeholder="Ex.: manchas na pele, inchaço nos lábios"></label>
+    </section>
+
+    <section class="card">
+      <h2>Cirurgias anteriores</h2>
+      <p class="hint">Conte as cirurgias que já fez e se houve algum problema com a anestesia.</p>
+      <div class="checks" id="cirs"></div>
+      <button type="button" class="add" data-add="cir">+ Adicionar cirurgia</button>
+      <div class="q">Algum parente teve problema grave com anestesia (por exemplo, febre muito alta)?</div>
+      <div class="seg"><label><input type="radio" name="familia" value="Não">Não</label><label><input type="radio" name="familia" value="Sim">Sim</label><label><input type="radio" name="familia" value="Não sei">Não sei</label></div>
+      <label class="f hide" id="familiaTxt">Conte o que aconteceu<input type="text" name="familiaDetalhe"></label>
+      <div class="q">Já recebeu transfusão de sangue?</div>
+      <div class="seg"><label><input type="radio" name="transfusoes" value="Não">Não</label><label><input type="radio" name="transfusoes" value="Sim, sem reação">Sim, sem reação</label><label><input type="radio" name="transfusoes" value="Com reação">Sim, com reação</label></div>
+    </section>
+
+    <section class="card">
+      <h2>Hábitos</h2>
+      <div class="q">Cigarro</div>
+      <div class="seg"><label><input type="radio" name="tabagismo" value="Nunca">Nunca fumei</label><label><input type="radio" name="tabagismo" value="Ex-tabagista">Já fumei, parei</label><label><input type="radio" name="tabagismo" value="Atual">Fumo</label></div>
+      <label class="f hide" id="parouTxt">Parou há quanto tempo?<input type="text" name="parouHa" placeholder="Ex.: 5 anos"></label>
+      <div class="q">Bebida alcoólica</div>
+      <div class="seg"><label><input type="radio" name="alcool" value="Não bebe">Não bebo</label><label><input type="radio" name="alcool" value="Social">Socialmente</label><label><input type="radio" name="alcool" value="Frequente">Com frequência</label></div>
+      <div class="q">Outras substâncias</div>
+      <div class="checks">
+        <label class="ck"><input type="checkbox" name="subst" value="Cannabis">Maconha</label>
+        <label class="ck"><input type="checkbox" name="subst" value="Cocaína">Cocaína</label>
+        <label class="ck none"><input type="checkbox" name="negaSubstancias">Não uso</label>
+      </div>
+      <label class="f">Outra substância<input type="text" name="outraSubst"></label>
+      <div class="q">Atividade física</div>
+      <div class="seg"><label><input type="radio" name="atividade" value="Sedentário">Não pratico</label><label><input type="radio" name="atividade" value="1–3x/semana">1 a 3 vezes por semana</label><label><input type="radio" name="atividade" value="4x ou mais">4 ou mais vezes</label></div>
+    </section>
+
+    <section class="card hide" id="nf">
+      <h2>Dados para a nota fiscal</h2>
+      <div class="q">A nota fiscal será no seu nome?</div>
+      <div class="seg"><label><input type="radio" name="nfMesma" value="sim">Sim, no meu nome</label><label><input type="radio" name="nfMesma" value="nao">Não, de outra pessoa</label></div>
+      <label class="f" id="nfNomeL">Nome completo de quem recebe a nota<input type="text" name="nfNome" autocapitalize="words"></label>
+      <label class="f">CPF de quem recebe a nota<input type="text" name="nfCpf" inputmode="numeric" placeholder="000.000.000-00" data-mask="cpf"></label>
+      <label class="f">Endereço completo<textarea name="nfEndereco" placeholder="Rua, número, bairro, cidade, CEP"></textarea></label>
+      <label class="f">Telefone<input type="tel" name="nfTelefone" placeholder="(85) 90000-0000" data-mask="phone"></label>
+    </section>
+
+    <button type="submit" class="send">Enviar ao meu anestesista</button>
+    <p class="priv">Suas respostas vão direto para o WhatsApp do seu anestesista, protegidas por criptografia. Nada fica guardado nesta página.</p>
+    </div>
+  </form>
+
+  <div class="done hide" id="ok"><b>Pronto!</b> O WhatsApp abriu com a mensagem para o seu anestesista. Toque em enviar para concluir. Se ele não abriu, <a href="#" id="again">toque aqui</a>.</div>
+</main>
+
+<script>
+// Doenças em linguagem simples; "v" é o diagnóstico como aparece no APA Digital.
+var DOENCAS = [
+  ['Coração e circulação', 'cardio', [['Pressão alta','HAS'],['Infarto','IAM prévio'],['Angina ou entupimento das artérias do coração','Coronariopatia'],['Insuficiência cardíaca','ICC'],['Arritmia ou fibrilação atrial','Fibrilação atrial'],['Problema nas válvulas do coração','Valvopatia'],['Marca-passo ou desfibrilador','Marca-passo / CDI'],['Stent no coração','Stent']]],
+  ['Pulmão', 'pulm', [['Asma ou bronquite','Asma'],['DPOC ou enfisema','DPOC'],['Apneia do sono (ronco com paradas na respiração)','Apneia do sono'],['Gripe, covid ou pneumonia no último mês','Infecção respiratória recente']]],
+  ['Hormônios', 'endo', [['Diabetes','Diabetes'],['Problema na tireoide','Doença da tireoide'],['Problema nas glândulas suprarrenais','Doença adrenal']]],
+  ['Estômago e fígado', 'gastro', [['Refluxo ou azia frequente','Refluxo'],['Doença no fígado','Hepatopatia'],['Já fiz cirurgia bariátrica','Bariátrica prévia']]],
+  ['Rins', 'renal', [['Doença nos rins','DRC'],['Faço hemodiálise','Diálise'],['Pedra nos rins','Litíase'],['Próstata aumentada','HPB']]],
+  ['Sangue', 'hemato', [['Anemia','Anemia'],['Sangro com facilidade','Coagulopatia'],['Já tive trombose ou embolia','Trombose prévia']]],
+  ['Sistema nervoso e emoções', 'neuro', [['AVC (derrame)','AVC'],['Epilepsia ou convulsões','Epilepsia'],['Depressão','Depressão'],['Ansiedade','Ansiedade']]],
+  ['Outras', 'outros', [['Reumatismo ou doença autoimune','Reumatológico'],['Câncer','Oncológico'],['HIV, hepatite ou outra infecção crônica','Infeccioso']]]
+];
+var ALERGIAS = [['Dipirona','Dipirona'],['Penicilina','Penicilina'],['Látex (luva, balão)','Látex'],['Anti-inflamatórios (ibuprofeno, diclofenaco)','AINEs'],['Iodo ou contraste','Iodo / contraste']];
+var INTERC = [['Enjoo ou vômito','NVPO'],['Disseram que foi difícil colocar o tubo de respiração','Via aérea difícil'],['Demorei muito para acordar','Despertar prolongado'],['Alergia ou reação','Reação alérgica']];
+
+var $ = function (s, r) { return (r || document).querySelector(s); };
+var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+function el(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+// ---------- link recebido do anestesista: #v1.<id>.<chave>.<meta> ----------
+function b64uDec(s) { s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+function b64uEnc(u) { var s = ''; for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+var parts = location.hash.slice(1).split('.');
+var PED = null;
+try {
+  if (parts[0] === 'v1' && parts.length === 4) {
+    PED = { id: parts[1], key: b64uDec(parts[2]), meta: JSON.parse(new TextDecoder().decode(b64uDec(parts[3]))) };
+    if (PED.key.length !== 32) PED = null;
+  }
+} catch (e) { PED = null; }
+
+if (!PED) { $('#erro').classList.remove('hide'); $('#form').classList.add('hide'); }
+else {
+  var m = PED.meta;
+  $('#intro').textContent = 'Olá! Sou ' + (m.a || 'seu anestesista') + ', anestesista' + (m.c ? ' do ' + m.c : '') + '. Segue abaixo um questionário para você responder da forma mais completa que puder.';
+  if (m.nf) $('#nf').classList.remove('hide');
+}
+
+// ---------- montar listas ----------
+var dz = $('#doencas');
+DOENCAS.forEach(function (g) {
+  dz.appendChild(el('<div class="grp">' + esc(g[0]) + '</div>'));
+  g[2].forEach(function (d) { dz.appendChild(el('<label class="ck"><input type="checkbox" name="doenca" value="' + g[1] + '|' + esc(d[1]) + '">' + esc(d[0]) + '</label>')); });
+});
+var az = $('#alergias');
+ALERGIAS.forEach(function (a) { az.appendChild(el('<label class="ck"><input type="checkbox" name="alergia" value="' + esc(a[1]) + '">' + esc(a[0]) + '</label>')); });
+
+var nMed = 0, nCir = 0;
+function addMed(v) {
+  v = v || {}; var i = nMed++;
+  var n = el('<div class="item" data-med><label class="f">Nome do remédio<input type="text" name="medNome' + i + '" value="' + esc(v.nome || '') + '"></label><label class="f">Dose e como toma<input type="text" name="medDose' + i + '" placeholder="Ex.: 50 mg, 1 vez ao dia" value="' + esc(v.dose || '') + '"></label><button type="button" class="rm">Remover</button></div>');
+  $('.rm', n).onclick = function () { n.remove(); salvar(); };
+  $('#meds').appendChild(n);
+  $('input[name=negaMeds]').checked = false;
+}
+function addCir(v) {
+  v = v || {}; var i = nCir++;
+  var ics = INTERC.map(function (x) { return '<label class="ck"><input type="checkbox" name="cirIc' + i + '" value="' + esc(x[1]) + '"' + ((v.ic || []).indexOf(x[1]) >= 0 ? ' checked' : '') + '>' + esc(x[0]) + '</label>'; }).join('');
+  var n = el('<div class="item" data-cir><label class="f">Qual cirurgia<input type="text" name="cirNome' + i + '" value="' + esc(v.nome || '') + '"></label><label class="f">Ano<input type="text" name="cirAno' + i + '" inputmode="numeric" value="' + esc(v.ano || '') + '"></label><label class="f">Tipo de anestesia, se souber<input type="text" name="cirAnest' + i + '" placeholder="Ex.: geral, raquidiana" value="' + esc(v.anest || '') + '"></label><div class="q">Teve algum destes problemas?</div><div class="checks">' + ics + '</div><button type="button" class="rm">Remover</button></div>');
+  $('.rm', n).onclick = function () { n.remove(); salvar(); };
+  $('#cirs').appendChild(n);
+}
+$$('[data-add]').forEach(function (b) { b.onclick = function () { (b.dataset.add === 'med' ? addMed : addCir)(); }; });
+
+// ---------- comportamento ----------
+function mask(t, kind) {
+  var d = t.replace(/\D/g, '');
+  if (kind === 'date') { d = d.slice(0, 8); return d.length > 4 ? d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4) : d.length > 2 ? d.slice(0, 2) + '/' + d.slice(2) : d; }
+  if (kind === 'cpf') { d = d.slice(0, 11); return d.replace(/^(\d{3})(\d)/, '$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1-$2'); }
+  if (kind === 'phone') { d = d.slice(0, 11); return d.length > 7 ? '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4) : d.length > 2 ? '(' + d.slice(0, 2) + ') ' + d.slice(2) : d; }
+  return t;
+}
+document.addEventListener('input', function (ev) {
+  var t = ev.target;
+  if (t.dataset && t.dataset.mask) t.value = mask(t.value, t.dataset.mask);
+  atualizar(); salvar();
+});
+document.addEventListener('change', function (ev) {
+  var t = ev.target;
+  if (t.dataset && t.dataset.none && t.checked) $$('input[name=' + t.dataset.none + ']').forEach(function (x) { x.checked = false; });
+  if (t.name === 'negaMeds' && t.checked) $$('[data-med]').forEach(function (x) { x.remove(); });
+  if (t.name === 'doenca' && t.checked) $('input[name=negaComorbidades]').checked = false;
+  if (t.name === 'alergia' && t.checked) $('input[name=negaAlergias]').checked = false;
+  if (t.name === 'subst' && t.checked) $('input[name=negaSubstancias]').checked = false;
+  if (t.name === 'negaSubstancias' && t.checked) $$('input[name=subst]').forEach(function (x) { x.checked = false; });
+  atualizar(); salvar();
+});
+function val(n) { var e = $('[name="' + n + '"]'); if (!e) return ''; if (e.type === 'radio') { var c = $('[name="' + n + '"]:checked'); return c ? c.value : ''; } if (e.type === 'checkbox') return e.checked; return e.value.trim(); }
+function atualizar() {
+  $('#gest').classList.toggle('hide', val('sexo') !== 'Feminino');
+  $('#familiaTxt').classList.toggle('hide', val('familia') !== 'Sim');
+  $('#parouTxt').classList.toggle('hide', val('tabagismo') !== 'Ex-tabagista');
+  var mesma = val('nfMesma') === 'sim';
+  $('#nfNomeL').classList.toggle('hide', mesma);
+}
+
+// ---------- rascunho neste celular ----------
+var KEY = PED ? 'apa-q-' + PED.id : null;
+function coletar() {
+  var o = {};
+  $$('#form input, #form textarea').forEach(function (e) {
+    if (!e.name || /^(med|cir)/.test(e.name)) return;
+    if (e.type === 'radio') { if (e.checked) o[e.name] = e.value; }
+    else if (e.type === 'checkbox') { if (e.value === 'on') o[e.name] = e.checked; else { o[e.name] = o[e.name] || []; if (e.checked) o[e.name].push(e.value); } }
+    else o[e.name] = e.value.trim();
+  });
+  o.meds = $$('[data-med]').map(function (n) { var i = $$('input', n); return { nome: i[0].value.trim(), dose: i[1].value.trim() }; }).filter(function (x) { return x.nome; });
+  o.cirs = $$('[data-cir]').map(function (n) { var i = $$('input[type=text]', n); return { nome: i[0].value.trim(), ano: i[1].value.trim(), anest: i[2].value.trim(), ic: $$('input[type=checkbox]:checked', n).map(function (x) { return x.value; }) }; }).filter(function (x) { return x.nome || x.ic.length; });
+  return o;
+}
+function salvar() { try { if (KEY) localStorage.setItem(KEY, JSON.stringify(coletar())); } catch (e) {} }
+function restaurar() {
+  var o; try { o = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { o = null; }
+  if (!o) { addMed(); addCir(); return; }
+  Object.keys(o).forEach(function (k) {
+    var v = o[k];
+    if (k === 'meds' || k === 'cirs') return;
+    $$('[name="' + k + '"]').forEach(function (e) {
+      if (e.type === 'radio') e.checked = e.value === v;
+      else if (e.type === 'checkbox') e.checked = e.value === 'on' ? !!v : (v || []).indexOf(e.value) >= 0;
+      else e.value = v;
+    });
+  });
+  (o.meds && o.meds.length ? o.meds : [{}]).forEach(addMed);
+  if (o.negaMeds) $$('[data-med]').forEach(function (x) { x.remove(); });
+  (o.cirs && o.cirs.length ? o.cirs : [{}]).forEach(addCir);
+}
+if (PED) { restaurar(); atualizar(); }
+
+// ---------- envio: cifra e abre o WhatsApp do anestesista ----------
+var linkVolta = '';
+async function cifrar(obj) {
+  var key = await crypto.subtle.importKey('raw', PED.key, 'AES-GCM', false, ['encrypt']);
+  var iv = crypto.getRandomValues(new Uint8Array(12));
+  var data = new TextEncoder().encode(JSON.stringify(obj));
+  var ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, data));
+  return b64uEnc(iv) + '.' + b64uEnc(ct);
+}
+function abrirWhats() {
+  var nome = val('nome');
+  var msg = 'Questionário pré-anestésico' + (nome ? ' de ' + nome : '') + ' respondido. Toque no link para abrir no APA Digital:\n' + linkVolta;
+  var num = (PED.meta.w || '').replace(/\D/g, '');
+  if (num && num.length <= 11) num = '55' + num;
+  location.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+}
+$('#form').addEventListener('submit', async function (ev) {
+  ev.preventDefault();
+  var btn = $('.send'); btn.disabled = true; btn.textContent = 'Preparando…';
+  try {
+    var dados = coletar(); dados.v = 1; dados.nf = !!PED.meta.nf;
+    var base = location.href.split('#')[0].replace(/index\.html$/, '').replace(/\/?$/, '/');
+    linkVolta = base + 'r.html#v1.' + PED.id + '.' + (await cifrar(dados));
+    $('#form').classList.add('hide'); $('#ok').classList.remove('hide');
+    window.scrollTo(0, 0);
+    abrirWhats();
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Enviar ao meu anestesista';
+    alert('Não foi possível preparar o envio. Tente de novo.');
+  }
+});
+$('#again').onclick = function (e) { e.preventDefault(); abrirWhats(); };
+</script>
+</body>
+</html>

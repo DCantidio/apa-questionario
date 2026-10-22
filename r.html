@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Respostas do questionário</title>
+<style>
+body{margin:0;background:#061A20;color:#E8F3F2;font-family:'Atkinson Hyperlegible',system-ui,-apple-system,sans-serif;font-size:18px;line-height:1.45}
+.wrap{max-width:520px;margin:0 auto;padding:40px 20px;display:flex;flex-direction:column;gap:18px}
+h1{font-size:28px;line-height:1.15;margin:0}
+p{margin:0;color:#B5CCD0}
+a.btn,button{font:inherit;font-weight:700;font-size:18px;min-height:58px;border-radius:18px;border:0;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
+a.btn{background:#F2B53A;color:#1D1606}
+button{background:#0C2A32;color:#E8F3F2;border:1px solid #1D4450}
+small{color:#8FB0B5;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Respostas do questionário pré-anestésico</h1>
+  <p>Este link é para o anestesista abrir no iPhone com o APA Digital instalado.</p>
+  <a class="btn" id="abrir" href="#">Abrir no APA Digital</a>
+  <button type="button" id="copiar">Copiar link</button>
+  <small id="dica">Se o app não abrir, copie o link e use "Colar resposta do paciente" na tela inicial do APA Digital.</small>
+</div>
+<script>
+// As respostas vão cifradas depois do "#", que nunca é enviado a este servidor.
+var app = 'apadigital://questionario' + location.hash;
+document.getElementById('abrir').href = app;
+if (location.hash.length > 10) setTimeout(function () { location.href = app; }, 300);
+document.getElementById('copiar').onclick = function () {
+  var b = this;
+  (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(function () { b.textContent = 'Link copiado'; }, function () { b.textContent = 'Não foi possível copiar'; });
+};
+</script>
+</body>
+</html>
