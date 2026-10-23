@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>Questionário pré-anestésico</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap">
 <style>
+@font-face{font-family:'Atkinson Hyperlegible';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/atkinson-hyperlegible-400.woff2) format('woff2')}
+@font-face{font-family:'Atkinson Hyperlegible';font-weight:700;font-style:normal;font-display:swap;src:url(fonts/atkinson-hyperlegible-700.woff2) format('woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700;font-style:normal;font-display:swap;src:url(fonts/bricolage-grotesque-700.woff2) format('woff2')}
 :root{--bg:#F2F5F4;--card:#FFFFFF;--ink:#0A2229;--muted:#546A70;--line:#D6E0DF;--track:#E3EAE9;--cover:#061A20;--co2:#F2B53A;--co2ink:#1D1606;--ok:#0B7A47;--err:#B3402E}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -44,6 +45,8 @@ input:focus,textarea:focus{outline:3px solid rgba(26,156,196,.35);border-color:#
 .priv{font-size:14px;color:var(--muted);text-align:center;margin:0}
 .err{background:#F8DCD8;color:#8C2318;border-radius:16px;padding:16px;font-weight:700}
 .done{background:#DDF3E6;color:#0B6B3E;border-radius:16px;padding:16px}
+.rodape{margin:8px 0 0;text-align:center;font-size:15px}
+.rodape a{color:var(--muted);text-decoration:underline;display:inline-block;min-height:44px;line-height:44px}
 </style>
 </head>
 <body>
@@ -157,6 +160,8 @@ input:focus,textarea:focus{outline:3px solid rgba(26,156,196,.35);border-color:#
     <p class="priv">Suas respostas vão direto para o WhatsApp do seu anestesista, protegidas por criptografia. Nada fica guardado nesta página.</p>
     </div>
   </form>
+
+  <p class="rodape"><a href="https://docs.google.com/document/d/1TN1fi-7K82wRBbNtE83GmxB13CLpB78zDbWuaUNKqsE/pub" target="_blank" rel="noopener">Política de privacidade</a></p>
 
   <div class="done hide" id="ok"><b>Pronto!</b> O WhatsApp abriu com a mensagem para o seu anestesista. Toque em enviar para concluir. Se ele não abriu, <a href="#" id="again">toque aqui</a>.</div>
 </main>
