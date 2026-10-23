@@ -218,7 +218,7 @@ var nMed = 0, nCir = 0;
 function addMed(v) {
   v = v || {}; var i = nMed++;
   var n = el('<div class="item" data-med><label class="f">Nome do remédio<input type="text" name="medNome' + i + '" value="' + esc(v.nome || '') + '"></label><label class="f">Dose e como toma<input type="text" name="medDose' + i + '" placeholder="Ex.: 50 mg, 1 vez ao dia" value="' + esc(v.dose || '') + '"></label><button type="button" class="rm">Remover</button></div>');
-  $('.rm', n).onclick = function () { n.remove(); salvar(); };
+  $('.rm', n).onclick = function () { n.remove(); if (!$$('[data-med]').length) addMed(); salvar(); };
   $('#meds').appendChild(n);
   $('input[name=negaMeds]').checked = false;
 }
@@ -226,7 +226,7 @@ function addCir(v) {
   v = v || {}; var i = nCir++;
   var ics = INTERC.map(function (x) { return '<label class="ck"><input type="checkbox" name="cirIc' + i + '" value="' + esc(x[1]) + '"' + ((v.ic || []).indexOf(x[1]) >= 0 ? ' checked' : '') + '>' + esc(x[0]) + '</label>'; }).join('');
   var n = el('<div class="item" data-cir><label class="f">Qual cirurgia<input type="text" name="cirNome' + i + '" value="' + esc(v.nome || '') + '"></label><label class="f">Ano<input type="text" name="cirAno' + i + '" inputmode="numeric" value="' + esc(v.ano || '') + '"></label><label class="f">Tipo de anestesia, se souber<input type="text" name="cirAnest' + i + '" placeholder="Ex.: geral, raquidiana" value="' + esc(v.anest || '') + '"></label><div class="q">Teve algum destes problemas?</div><div class="checks">' + ics + '</div><button type="button" class="rm">Remover</button></div>');
-  $('.rm', n).onclick = function () { n.remove(); salvar(); };
+  $('.rm', n).onclick = function () { n.remove(); if (!$$('[data-cir]').length) addCir(); salvar(); };
   $('#cirs').appendChild(n);
 }
 $$('[data-add]').forEach(function (b) { b.onclick = function () { (b.dataset.add === 'med' ? addMed : addCir)(); }; });
