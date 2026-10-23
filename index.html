@@ -201,7 +201,7 @@ try {
 if (!PED) { $('#erro').classList.remove('hide'); $('#form').classList.add('hide'); }
 else {
   var m = PED.meta;
-  $('#intro').textContent = 'Olá! Sou ' + (m.a || 'seu anestesista') + ', anestesista' + (m.c ? ' do ' + m.c : '') + '. Segue abaixo um questionário para você responder da forma mais completa que puder.';
+  $('#intro').textContent = 'Olá! Sou ' + (m.a || 'seu anestesista') + ', anestesista' + (m.c ? ' ' + (/^d[oa] /.test(m.c) ? m.c : 'do ' + m.c) : '') + '. Segue abaixo um questionário para você responder da forma mais completa que puder.';
   if (m.nf) $('#nf').classList.remove('hide');
 }
 
