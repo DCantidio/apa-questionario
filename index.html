@@ -270,7 +270,7 @@ var KEY = PED ? 'apa-q-' + PED.id : null;
 function coletar() {
   var o = {};
   $$('#form input, #form textarea').forEach(function (e) {
-    if (!e.name || /^(med|cir)/.test(e.name)) return;
+    if (!e.name || /^(med(Nome|Dose)|cir(Nome|Ano|Anest|Ic))\d/.test(e.name)) return;
     if (e.type === 'radio') { if (e.checked) o[e.name] = e.value; }
     else if (e.type === 'checkbox') { if (e.value === 'on') o[e.name] = e.checked; else { o[e.name] = o[e.name] || []; if (e.checked) o[e.name].push(e.value); } }
     else o[e.name] = e.value.trim();
