@@ -318,7 +318,10 @@ $('#form').addEventListener('submit', async function (ev) {
   ev.preventDefault();
   var btn = $('.send'); btn.disabled = true; btn.textContent = 'Preparando…';
   try {
-    var dados = coletar(); dados.v = 1; dados.nf = !!PED.meta.nf;
+    // Campos vazios não vão no link (o app já trata o que falta como não respondido), o que o deixa bem mais curto.
+    var tudo = coletar(), dados = {};
+    Object.keys(tudo).forEach(function (k) { var v = tudo[k]; if (v !== '' && v !== false && !(Array.isArray(v) && !v.length)) dados[k] = v; });
+    dados.v = 1; dados.nf = !!PED.meta.nf;
     var base = location.href.split('#')[0].replace(/index\.html$/, '').replace(/\/?$/, '/');
     linkVolta = base + 'r.html#v1.' + PED.id + '.' + (await cifrar(dados));
     $('#form').classList.add('hide'); $('#ok').classList.remove('hide');
