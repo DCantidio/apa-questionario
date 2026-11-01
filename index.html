@@ -300,9 +300,8 @@ if (PED) { restaurar(); atualizar(); }
 
 // ---------- envio: cifra e abre o WhatsApp do anestesista ----------
 var linkVolta = '';
-// 2 = respostas compactadas antes de cifrar (link com cerca de metade do tamanho; links longos chegavam cortados).
-// Só passar para 2 depois que os iPhones receberem a atualização do app que lê o v2.
-var VERSAO_LINK = 1;
+// v2 = respostas compactadas antes de cifrar (link cerca de 40% menor; links longos chegavam cortados).
+// Só quando o app que criou o pedido avisa que lê o v2 (meta.z); app antigo continua recebendo v1.
 async function compactar(u) {
   var s = new Blob([u]).stream().pipeThrough(new CompressionStream('deflate-raw'));
   return new Uint8Array(await new Response(s).arrayBuffer());
@@ -312,7 +311,7 @@ async function cifrar(obj) {
   var key = await crypto.subtle.importKey('raw', PED.key, 'AES-GCM', false, ['encrypt']);
   var iv = crypto.getRandomValues(new Uint8Array(12));
   var data = new TextEncoder().encode(JSON.stringify(obj)), v = 1;
-  if (VERSAO_LINK === 2 && typeof CompressionStream === 'function') {
+  if (PED.meta && PED.meta.z && typeof CompressionStream === 'function') {
     try { data = await compactar(data); v = 2; } catch (e) { data = new TextEncoder().encode(JSON.stringify(obj)); }
   }
   var ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, data));
