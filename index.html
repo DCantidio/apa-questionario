@@ -307,9 +307,11 @@ async function cifrar(obj) {
   var ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, data));
   return b64uEnc(iv) + '.' + b64uEnc(ct);
 }
+// Soma de conferência (FNV-1a, 8 dígitos hexadecimais). A mesma conta está em r.html.
+function soma(t) { var h = 0x811c9dc5; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
 function abrirWhats() {
   var nome = val('nome');
-  var msg = 'Questionário pré-anestésico' + (nome ? ' de ' + nome : '') + ' respondido. Toque no link para abrir no APA Digital:\n' + linkVolta;
+  var msg = 'Questionário pré-anestésico' + (nome ? ' de ' + nome : '') + ' respondido. Toque no link para abrir no APA Digital (se não abrir, copie esta mensagem e use "Colar resposta do paciente"):\n' + linkVolta;
   var num = (PED.meta.w || '').replace(/\D/g, '');
   if (num && num.length <= 11) num = '55' + num;
   location.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
@@ -323,7 +325,9 @@ $('#form').addEventListener('submit', async function (ev) {
     Object.keys(tudo).forEach(function (k) { var v = tudo[k]; if (v !== '' && v !== false && !(Array.isArray(v) && !v.length)) dados[k] = v; });
     dados.v = 1; dados.nf = !!PED.meta.nf;
     var base = location.href.split('#')[0].replace(/index\.html$/, '').replace(/\/?$/, '/');
-    linkVolta = base + 'r.html#v1.' + PED.id + '.' + (await cifrar(dados));
+    var volta = 'v1.' + PED.id + '.' + (await cifrar(dados));
+    // "c<soma>." na frente deixa a página r.html conferir se o link chegou inteiro; o app ignora esse trecho.
+    linkVolta = base + 'r.html#c' + soma(volta) + '.' + volta;
     $('#form').classList.add('hide'); $('#ok').classList.remove('hide');
     window.scrollTo(0, 0);
     abrirWhats();
