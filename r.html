@@ -28,7 +28,18 @@ small{color:#8FB0B5;font-size:14px}
 // As respostas vão cifradas depois do "#", que nunca é enviado a este servidor.
 var app = 'apadigital://questionario' + location.hash;
 document.getElementById('abrir').href = app;
-if (location.hash.length > 10) setTimeout(function () { location.href = app; }, 300);
+// Links novos começam com "c<soma>.": confere se o link chegou inteiro (o WhatsApp pode cortar links longos).
+function soma(t) { var h = 0x811c9dc5; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
+var m = /^#c([0-9a-f]{8})\.(v1\..*)$/.exec(location.hash);
+var cortado = m && soma(m[2]) !== m[1];
+if (cortado) {
+  document.querySelector('h1').textContent = 'O link chegou incompleto';
+  document.querySelector('p').textContent = 'As respostas estão inteiras na mensagem do WhatsApp, mas o link foi cortado no caminho até aqui.';
+  document.getElementById('abrir').style.display = 'none';
+  document.getElementById('copiar').style.display = 'none';
+  document.getElementById('dica').textContent = 'Volte ao WhatsApp, segure o dedo na mensagem do paciente, toque em Copiar e, no APA Digital, use "Colar resposta do paciente" na tela inicial.';
+  document.getElementById('dica').style.fontSize = '18px';
+} else if (location.hash.length > 10) setTimeout(function () { location.href = app; }, 300);
 document.getElementById('copiar').onclick = function () {
   var b = this;
   (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(function () { b.textContent = 'Link copiado'; }, function () { b.textContent = 'Não foi possível copiar'; });
